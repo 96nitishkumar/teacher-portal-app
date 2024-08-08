@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Marks Table</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+  <div class="container">
+    <div id="error-message" style="color: red; text-align: center;"></div>
+    <header>
+      <h1>tailwebs.</h1>
+      <nav>
+        <a href="#" id="home-link">Home</a>
+        <a href="#" id="logout-link">Logout</a>
+      </nav>
+    </header>
+    <div class="sub-container">
+      <div id="loader" class="loader"></div>
+      <div id="student-table-container" style="display: none;">
+        <div class="table-header">
+          <span>Name</span>
+          <span>Subject</span>
+          <span>Mark</span>
+          <span>Action</span>
+        </div>
+        <div id="student-table-body"></div>
+      </div>
+      <button id="add-btn" class="button1">Add</button>
+    </div>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <form id="add-student-form" class="std-form">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required>
+          <label for="mark">Mark</label>
+          <input type="number" id="mark" name="mark" required>
+          <button type="submit" class="button1">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="home.js"></script>
+</body>
+</html>

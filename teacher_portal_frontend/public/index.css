@@ -1,0 +1,117 @@
+
+.login-body {
+    margin: 0px;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .heading{
+      color: #d91c5c;
+      text-align: center;
+    }
+    
+    .container-login {
+      width: 25%;
+      height: 30%;
+      background-color: #ffffff;
+      padding: 100px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-box {
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .input-group label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+    
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid hsl(0, 6%, 90%);
+  
+    }
+    
+    .forgot-password {
+      width: 105%;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: right;
+    }
+    .forgot-password a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .login-btn1 {
+      margin-top: 2.5rem;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      width: 200px;
+    }
+    
+    .login-btn1:hover {
+      background-color: #333;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.8em;
+    }
+  
+  
+    @media (max-width: 485px) {
+      .container-login {
+        width: 80%;  
+        height: auto; 
+        padding: 20px;
+      }
+    
+      .login-box {
+        text-align: left;  
+      }
+    
+      .input-group {
+        margin-bottom: 15px;  
+      }
+    
+      .input-group input {
+        padding: 8px; 
+      }
+    
+      .forgot-password {
+        width: 100%; 
+        justify-content: center; 
+      }
+    
+      .forgot-password a {
+        font-size: 14px; 
+      }
+    
+      .login-btn1 {
+        width: 100%; 
+        padding: 12px;
+      }
+    }
+  
+    
+    
