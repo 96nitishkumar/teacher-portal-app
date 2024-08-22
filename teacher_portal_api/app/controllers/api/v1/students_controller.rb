@@ -7,10 +7,7 @@ class Api::V1::StudentsController < ApplicationController
   end
 
   def create
-    name = student_params[:name]&.downcase
-    subject = student_params[:subject]&.downcase
-    student = @current_teacher.students.find_or_initialize_by(name: name, subject: subject)
-
+    student = @current_teacher.students.find_or_initialize_by(name: student_params[:name]&.downcase, subject: student_params[:subject]&.downcase)
     if student.new_record?
       student.marks = student_params[:marks]
     else
@@ -19,7 +16,7 @@ class Api::V1::StudentsController < ApplicationController
       if total_marks > 100
         return render json: { errors: { marks: "Total marks cannot exceed 100." } }, status: :unprocessable_entity
       end
-      student.marks = new_marks
+      student.marks = total_marks
     end
 
     if student.save
