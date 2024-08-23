@@ -17,8 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const logoutLink = document.getElementById('logout-link'); // Add logout link element
 
   const populateTable = (data) => {
+    console.log(data)
     tableBody.innerHTML = '';
     data.forEach((student) => {
+      console.log(student)
       const row = document.createElement('div');
       row.className = 'student-row';
 
@@ -74,33 +76,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const fetchStudentData = () => {
-    fetch(`${url}/api/v1/students`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-      }
-    })
-    .then(response => {
+  const fetchStudentData = async () => {
+    try {
+      const response = await fetch(`${url}/api/v1/students`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
+      });
+  
       if (!response.ok) {
         if (response.status === 404) {
-          window.location.href = 'login.html'; // Redirect to login page if token is not found
+          alert('Token not found!');
+        } else if (response.status === 422) {
+          alert('Token Expired');
+        } else if (response.status === 401) {
+          alert('Invalid Token');
+        } else if (response.status === 500) {
+          alert('Server Error. Please try again later.');
+        } else {
+          alert('An unexpected error occurred.');
         }
-        throw new Error(`HTTP error! status: ${response.status}`);
+        
+        localStorage.removeItem('authToken'); 
+        window.location.href = '/';
+        return;
       }
-      return response.json();
-    })
-    .then(data => {
+  
+      const studentList = await response.json();
+      
       loader.style.display = 'none';
       studentTableContainer.style.display = 'block';
-      populateTable(data);
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
-      errorMessage.textContent = 'Error fetching data. Please try again.';
-    });
+      populateTable(studentList);
+  
+    } catch (error) {
+      alert('An error occurred while fetching data. Please try again later.');
+    }
   };
+  
 
   const editStudent = (id) => {
     fetch(`${url}/api/v1/students/${id}`, {

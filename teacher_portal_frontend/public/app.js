@@ -41,8 +41,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Redirect to the home.html page
         window.location.href = 'home.html';
-      } else {
-        document.getElementById('username-error').innerText = 'Invalid email or password';
+      } else if(data.error =='Incorrect password. Please try again.') {
+        document.getElementById('password-error').innerText = data.error;
+      }else {
+        document.getElementById('username-error').innerText = data.error;
       }
     })
     .catch(error => console.error('Error:', error));

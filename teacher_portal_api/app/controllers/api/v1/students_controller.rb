@@ -56,10 +56,16 @@ class Api::V1::StudentsController < ApplicationController
   def authorize_request
     header = request.headers['Authorization']
     header = header.split(' ').last if header
-    decoded = JsonWebToken.decode(header)
     return render json: { errors: 'Token not found!', status: false }, status: 404 unless header
-    @current_teacher = Teacher.find(decoded[:teacher_id]) if decoded
-  rescue ActiveRecord::RecordNotFound, JWT::DecodeError
-    render json: { errors: 'Unauthorized' }, status: :unauthorized
+    begin
+      decoded = JsonWebToken.decode(header)
+      @current_teacher = Teacher.find(decoded[:teacher_id]) if decoded
+    rescue JWT::ExpiredSignature
+      render json: { errors: "Token Expired" }, status: :unprocessable_entity
+    rescue JWT::DecodeError
+      render json: { errors: "Invalid Token" }, status: :unauthorized
+    rescue ActiveRecord::RecordNotFound, JWT::DecodeError
+      render json: { errors: 'Unauthorized' }, status: :unauthorized
+    end
   end
 end
